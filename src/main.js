@@ -32,7 +32,7 @@ function updateCountdowns() {
   const now = new Date().getTime();
 
   todos.forEach(todo => {
-    const countdownEl = document.querySelector(`li[data-id="${todo.id}"] .todo-countdown`);
+    const countdownEl = document.querySelector(`li[data-id="${todo.id} data-testid="test-todo-time-remaining"] .todo-countdown`);
     if (!countdownEl || todo.completed) return;
 
     const diff = todo.targetTime - now;
@@ -82,7 +82,7 @@ function dueDatez() {
     year: 'numeric'
   });
 
-  console.log("formattedDate", formattedDate);
+
   const today = new Date();
   const daysLeft = futureDate - today;
   const daysRemaining = Math.ceil(daysLeft / (1000 * 60 * 60 * 24));
@@ -112,7 +112,6 @@ function startCountdown(target) {
     const diff = target - now;
 
     if (diff <= 0) {
-      displayInput.innerText = "Time's Up!";
       clearInterval(window.previewInterval);
       return;
     }
@@ -225,11 +224,11 @@ function renderTodos(newTodos) {
     li.innerHTML = `
     <div class="todo-main-content">
       <div class="todo-left">
-        <button type="checkbox" data-testid="test-todo-complete-toggle" class="checkbox ${todo.completed ? 'checked' : ''}"></button>
+        <button role="checkbox" data-testid="test-todo-complete-toggle" class="checkbox ${todo.completed ? 'checked' : ''}"></button>
         <div class="todo-info">
           <span class="todo-text">${todo.text}</span>
           <div class="todo-meta">
-            <span class="todo-date">
+            <span data-testid="test-todo-date"S class="todo-date">
               <i data-lucide="calendar"></i>
               ${todo.formattedDate}
             </span>
