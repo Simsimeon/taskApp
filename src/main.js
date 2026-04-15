@@ -49,19 +49,19 @@ function updateCountdowns() {
 
 
     if (days === 1) {
-      console.log(days === 1);
-      return countdownEl.innerText = `Due tomorrow`;
+
+      return countdownEl.innerText = `Due tomorrow `;
 
 
     }
     else if (days > 1) {
-      countdownEl.innerText = ` Due in ${days} days`;
+      countdownEl.innerText = ` Due in ${days} days ${hours} hours`;
     }
     else {
       const h = String(hours).padStart(2, '0');
       const m = String(minutes).padStart(2, '0');
       const s = String(seconds).padStart(2, '0');
-      countdownEl.innerText = `${h}:${m}:${s}`;
+      countdownEl.innerText = ` Due in ${h}:${m}:${s}`;
     }
   });
 }
