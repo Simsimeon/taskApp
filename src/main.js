@@ -23,16 +23,11 @@ const closeModalBtn = document.getElementById('close-modal');
 
 
 
-
-
-priorityInput.addEventListener('change', (e) => {
-  console.log(e.target.value);
-});
 function updateCountdowns() {
   const now = new Date().getTime();
 
   todos.forEach(todo => {
-    const countdownEl = document.querySelector(`li[data-id="${todo.id} data-testid="test-todo-time-remaining"] .todo-countdown`);
+    const countdownEl = document.querySelector(`li[data-id="${todo.id}"] .todo-countdown`);
     if (!countdownEl || todo.completed) return;
 
     const diff = todo.targetTime - now;
@@ -82,16 +77,9 @@ function dueDatez() {
     year: 'numeric'
   });
 
-
   const today = new Date();
   const daysLeft = futureDate - today;
   const daysRemaining = Math.ceil(daysLeft / (1000 * 60 * 60 * 24));
-
-  if (daysRemaining > 0) {
-    // displayInput.innerText = `${daysRemaining} ${daysRemaining == 1 ? "Day" : "Days"} remaining`;
-    console.log("daysRemaining", daysRemaining);
-  }
-
 
   if (daysRemaining <= 0) {
     const dueTime = new Date(`${date} ${timeInput.value}`).getTime();
@@ -129,11 +117,7 @@ function startCountdown(target) {
   updatePreview();
   window.previewInterval = setInterval(updatePreview, 1000);
 }
-dateInput.addEventListener('change', (e) => {
 
-  console.log("Selected date:", e.target.value); // Output: yyyy-mm-dd
-
-});
 
 function addTodo() {
   const priority = priorityInput.value;
