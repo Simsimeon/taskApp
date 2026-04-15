@@ -50,7 +50,7 @@ function updateCountdowns() {
 
     }
     else if (days > 1) {
-      countdownEl.innerText = ` Due in ${days} days ${hours} hours`;
+      countdownEl.innerText = ` Due in ${days} days ${hours === 0 ? '' : hours + ' hours'}`;
     }
     else {
       const h = String(hours).padStart(2, '0');
