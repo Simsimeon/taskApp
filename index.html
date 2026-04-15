@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow | Focus & Create</title>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+  <section data-testid="test-todo-card" id="app">
+    <div class="container">
+      <header>
+        <h2 data-testid="test-todo-title">TaskFlow</h2>
+        <p data-testid="test-todo-description" class="subtitle">Stay focused, be productive</p>
+      </header>
+
+      <div class="input-group ">
+        <input type="text" id="todo-input" placeholder="Add a new task..." aria-label="New task">
+        <button class="add-btn" id="add-btn">
+          <i data-lucide="plus"></i>
+        </button>
+      </div>
+      <div class="datetime-group">
+        <div class="field-wrapper">
+          <label for="myDate">Due Date</label>
+          <div class="input-container">
+            <input type="date" id="myDate">
+          </div>
+        </div>
+        <div class="field-wrapper">
+          <label for="appt">Due Time</label>
+          <div class="input-container">
+            <input data-testid="test-todo-time-remaining" type="time" id="appt" step="1">
+          </div>
+        </div>
+      </div>
+      <div class="field-wrapper priority-field">
+        <label for="priority">Priority Level</label>
+        <div class="input-container">
+          <select data-testid="test-todo-priority" name="priority" id="priority">
+            <option value="">Select Priority</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+      </div>
+
+
+
+
+      <div class="progress-container hidden">
+
+        <div class="progress-label">
+          <span>Task Progress</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="progress-fill" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <div id="display" class="countdown-preview"></div>
+      <ul class="todo-list" id="todo-list">
+        <!-- Tasks will be injected here -->
+      </ul>
+
+      <div class="stats">
+        <span id="items-left">0 items left</span>
+        <span id="clear-completed" style="cursor: pointer; display: none;">Clear Completed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Task</h2>
+        <button class="close-modal" id="close-modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <input type="text" id="edit-todo-input" placeholder="Task description..." aria-label="Edit task">
+        </div>
+        <div class="modal-actions">
+          <button id="cancel-edit" class="secondary-btn">Cancel</button>
+          <button id="save-edit" class="primary-btn">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
