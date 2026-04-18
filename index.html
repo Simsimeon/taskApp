@@ -41,7 +41,7 @@
       <div class="field-wrapper priority-field">
         <label for="priority">Priority Level</label>
         <div class="input-container">
-          <select data-testid="test-todo-priority" name="priority" id="priority">
+          <select data-testid="test-todo-priority-indicator" name="priority" id="priority">
             <option value="">Select Priority</option>
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -77,21 +77,47 @@
   </section>
 
   <!-- Edit Modal -->
-  <div id="edit-modal" class="modal">
+  <div id="edit-modal" data-testid="test-todo-edit" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Edit Task</h2>
+        <h2 data-testid="test-todo-edit-title">Edit Task</h2>
         <button class="close-modal" id="close-modal">
           <i data-lucide="x"></i>
         </button>
       </div>
       <div class="modal-body">
         <div class="input-group">
-          <input type="text" id="edit-todo-input" placeholder="Task description..." aria-label="Edit task">
+          <input data-testid="test-todo-edit-description-input" type="text" id="edit-todo-input"
+            placeholder="Task description..." aria-label="Edit task">
+        </div>
+        <div class="datetime-group">
+          <div class="field-wrapper">
+            <label for="edit-todo-date">Due Date</label>
+            <div class="input-container">
+              <input data-testid="test-todo-edit-date-input" type="date" id="edit-todo-date">
+            </div>
+          </div>
+          <div class="field-wrapper">
+            <label for="edit-todo-time">Due Time</label>
+            <div class="input-container">
+              <input data-testid="test-todo-edit-date-input" type="time" id="edit-todo-time" step="1">
+            </div>
+          </div>
+        </div>
+        <div class="field-wrapper priority-field">
+          <label for="edit-todo-priority">Priority Level</label>
+          <div class="input-container">
+            <select data-testid="test-todo-edit-priority-input" name="priority" id="edit-todo-priority">
+              <option value="">Select Priority</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
         </div>
         <div class="modal-actions">
-          <button id="cancel-edit" class="secondary-btn">Cancel</button>
-          <button id="save-edit" class="primary-btn">Save Changes</button>
+          <button data-testid="test-todo-edit-cancel-button" id="cancel-edit" class="secondary-btn">Cancel</button>
+          <button data-testid="test-todo-edit-save-button" id="save-edit" class="primary-btn">Save Changes</button>
         </div>
       </div>
     </div>

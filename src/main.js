@@ -2,6 +2,7 @@ import './style.css'
 import updateProgressBar from './progressBar';
 import { deleteTodo, startEdit, closeEditModal, handleSaveEdit } from './editTodo';
 import { todos, saveTodos, initStore } from './todoStore';
+import { collapseMessage } from './message';
 
 // Initialize Lucide icons
 lucide.createIcons();
@@ -31,16 +32,18 @@ function updateCountdowns() {
     if (!countdownEl || todo.completed) return;
 
     const diff = todo.targetTime - now;
-    if (diff <= 0) {
-      countdownEl.innerText = "Time's Up!";
-      countdownEl.style.color = 'var(--danger)';
-      return;
-    }
-
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    if (diff <= 0) {
+      countdownEl.dataset.testid = "test-todo-overdue-indicator";
+      countdownEl.innerText = `Overdue by ${Math.abs(days) || ""} days ${Math.abs(hours) || ""} hrs`;
+      countdownEl.style.color = 'var(--danger)';
+      return;
+    }
+
 
 
     if (days === 1) {
@@ -204,6 +207,8 @@ function renderTodos(newTodos) {
     const li = document.createElement('li');
     li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
     li.setAttribute('data-id', todo.id);
+    li.style.outline = 'none'; // Avoid default focus ring
+    li.setAttribute('tabindex', '0'); // Make focusable
 
     li.innerHTML = `
     <div class="todo-main-content">
@@ -242,7 +247,10 @@ function renderTodos(newTodos) {
 
     // Toggle completion
     li.querySelector('.checkbox').onclick = () => toggleTodo(todo.id);
-    li.querySelector('.todo-text').onclick = () => toggleTodo(todo.id);
+
+    const todoTextEl = li.querySelector('.todo-text');
+    todoTextEl.onclick = () => toggleTodo(todo.id);
+    collapseMessage(todoTextEl, todo.text);
 
     // Delete
     li.querySelector('.delete-btn').onclick = (e) => {
@@ -255,6 +263,21 @@ function renderTodos(newTodos) {
       e.stopPropagation();
       startEdit(todo.id);
     };
+
+    // Keyboard Shortcuts
+    li.addEventListener('keydown', (e) => {
+      // Handle actions when the li item is focused
+      if (e.target === li) {
+        if (e.key === 'Delete' || e.key === 'Backspace') {
+          deleteTodo(todo.id);
+        } else if (e.key === 'e' || e.key === 'E') {
+          startEdit(todo.id);
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); // Prevent scroll on space
+          toggleTodo(todo.id);
+        }
+      }
+    });
 
     todoList.appendChild(li);
 
